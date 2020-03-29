@@ -94,10 +94,22 @@ If you experience issues with code generation (e.g., missing closing tags),
 add `SUMMARY_MAX_LENGTH = None` to your settings file.
 
 ## Speakerdeck Tag
-To insert a Speakerdeck viewer into your content, enable the
-`liquid_tags.speakerdeck` plugin and add the following to your source document:
 
-    {% speakerdeck speakerdeck_id %}
+To insert a Speakerdeck viewer into your content, follow these steps:
+
+1. Enable the `liquid_tags.soundcloud` plugin
+2. Add the following to your source document:
+
+  ```html
+  {% speakerdeck speakerdeck_id [ratio] %}
+  ```
+
+### Note
+
+- The ratio is a decimal number and is optional.
+- Ratio accept decimal number and digit after decimal is optional.
+- If ratio is not specified, then it will be `1.33333333333333` (4/3).
+- An example value for the ration can be `1.77777777777777` (16/9).
 
 ## Video Tag
 To insert HTML5-friendly video into your content, enable the `liquid_tags.video`
@@ -108,7 +120,6 @@ plugin and add the following to your source document:
 The width and height are in pixels and are optional. If they are not specified,
 then the native video size will be used. The poster image is a preview image
 that is shown prior to initiating video playback.
-
 To link to a video file, make sure it is in a static directory, transmitted
 to your server, and available at the specified URL.
 
@@ -132,12 +143,21 @@ your source document:
     {% include_code /path/to/code.py [lang:python] [lines:X-Y] [:hidefilename:] [title] %}
 
 All arguments are optional but must be specified in the order shown above.
-If using `:hidefilename:`, a title must be provided as indicated above.
+
+    {% include_code /path/to/code.py lines:1-10 Test Example %}
+
+This example will show the first ten lines of the file.
+
+To hide filename, use `:hidefilename:`. If using `:hidefilename:`, a title must
+be provided.
+
+You can hide download link with `:hidelink:`. 
+
+If you would like to hide all three, i.e. title, filename and download link, use `:hideall:`.
+
+Following examples hides the filename.
 
     {% include_code /path/to/code.py lines:1-10 :hidefilename: Test Example %}
-
-This example will show the first ten lines of the file while hiding the actual
-filename.
 
 The script must be in the `code` subdirectory of your content folder;
 the default location can be changed by specifying the directory in your
